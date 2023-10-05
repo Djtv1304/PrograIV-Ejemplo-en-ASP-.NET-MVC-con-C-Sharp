@@ -1,0 +1,49 @@
+﻿﻿
+@model List<Ejemplo1.Models.Producto>
+
+@{
+    ViewData["Title"] = "Lista Productos";
+}
+
+
+
+<h1>@ViewData["Title"]</h1>
+<!-- En el Url.Action le envío el nombre del método a ejectar y el modelo del objeto -->
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Producto")'">Nuevo Producto <i class="fa-solid fa-plus"></i></button>
+
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <th scope="row">@item.IdProducto</th>
+                <td>@item.Nombre</td>
+                <td>@item.Descripcion</td>
+                <td>@item.Cantidad</td>
+                <td>
+
+                    <button type="button" class="btn btn-primary">Ver <i class="fa-solid fa-eye"></i></button>
+                    <!-- Con asp-route puedo llevarme al controlador cualquier atributo invocando al modelo e indicando en la etiqueta -->
+                    <a asp-action="Edit" asp-route-IdProducto="@item.IdProducto" class="btn btn-light">Editar <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a asp-action="Delete" asp-route-IdProducto="@item.IdProducto" type="button" class="btn btn-danger">Eliminar <i class="fa-solid fa-trash"></i></a>
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+<p>Esta es la vista de la lista de productos</p>
