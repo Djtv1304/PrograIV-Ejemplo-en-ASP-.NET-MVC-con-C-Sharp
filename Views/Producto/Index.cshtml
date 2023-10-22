@@ -1,16 +1,12 @@
-﻿﻿
-@model List<Ejemplo1.Models.Producto>
+﻿@model List<Ejemplo1.Models.Producto>
 
 @{
     ViewData["Title"] = "Lista Productos";
 }
 
-
-
 <h1>@ViewData["Title"]</h1>
-<!-- En el Url.Action le envío el nombre del método a ejectar y el modelo del objeto -->
-<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Producto")'">Nuevo Producto <i class="fa-solid fa-plus"></i></button>
 
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Producto")'">Nuevo Producto <i class="fa-solid fa-plus"></i></button>
 
 <table class="table table-hover table-dark">
     <thead>
@@ -25,25 +21,40 @@
     <tbody>
         @foreach (var item in Model)
         {
-
             <tr>
                 <th scope="row">@item.IdProducto</th>
                 <td>@item.Nombre</td>
                 <td>@item.Descripcion</td>
                 <td>@item.Cantidad</td>
                 <td>
-
-                    <button type="button" class="btn btn-primary">Ver <i class="fa-solid fa-eye"></i></button>
-                    <!-- Con asp-route puedo llevarme al controlador cualquier atributo invocando al modelo e indicando en la etiqueta -->
+                    <a href="javascript:void(0);" class="btn btn-primary" onclick="viewProduct('@item.Nombre', '@item.Descripcion')">Ver <i class="fa-solid fa-eye"></i></a>
                     <a asp-action="Edit" asp-route-IdProducto="@item.IdProducto" class="btn btn-light">Editar <i class="fa-solid fa-pen-to-square"></i></a>
-                    <a asp-action="Delete" asp-route-IdProducto="@item.IdProducto" type="button" class="btn btn-danger">Eliminar <i class="fa-solid fa-trash"></i></a>
-
+                    <a asp-action="Delete" asp-route-IdProducto="@item.IdProducto" class="btn btn-danger">Eliminar <i class="fa-solid fa-trash"></i></a>
                 </td>
             </tr>
-
         }
     </tbody>
 </table>
 
+<!-- Modal único -->
+<div class="modal fade" id="viewProductModal" tabindex="-1" role="dialog" aria-labelledby="viewProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewProductName"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="viewProductDescription"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="hideProductModal()">Cerrar</button>
+            </div>
 
-<p>Esta es la vista de la lista de productos</p>
+        </div>
+    </div>
+</div>
+
+
+
+

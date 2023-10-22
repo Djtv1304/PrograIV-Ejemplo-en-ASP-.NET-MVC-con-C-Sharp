@@ -1,4 +1,11 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+    function viewProduct(productName, productDescription) {
+        $("#viewProductName").text(productName);
+    $("#viewProductDescription").text(productDescription);
+    $('#viewProductModal').modal('show');
+        }
 
-// Write your JavaScript code.
+    function hideProductModal() {
+        $('#viewProductModal').modal('hide');
+        }
+
